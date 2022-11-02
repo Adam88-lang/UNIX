@@ -1,0 +1,61 @@
+/*Adam Roos
+ATR2000002
+SE3377.004
+*/
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*
+ * This program counts the number of sentences in a given string and
+ * the number of tokens in each sentence.
+ * Terminates when user enters BYE
+ */
+
+int
+main(int argc, char* argv[])
+{
+
+	// define the required variables
+	char* input = 0;
+	size_t inputSize;
+	char* token;
+	char* token2;
+	int num_tokens = 0;
+	int num_tokens2 = 0;
+	int j;
+	char* strptr1;
+	char* strptr2;
+	char* str1;
+	char* str2;
+	while (1) {
+		printf("Enter the string: ");
+		getline(&input, &inputSize, stdin);
+
+		for (j = 2, str1 = input; ; j++, str1 = NULL)
+		{
+		num_tokens2 = 0;
+		token = strtok_r(str1, ".", &strptr1);
+			if (strcmp(token,"\n")==0)
+				break;
+				if(strcmp(token, "BYE\n")==0)
+				exit(EXIT_SUCCESS);
+			num_tokens++;
+
+			for (str2 = token; ; str2 = NULL) {
+				token2 = strtok_r(str2, " ", &strptr2);
+				if (token2 == NULL)
+				break;
+				num_tokens2++;
+			}
+			printf("Sentence %d tokens %d\n",num_tokens , num_tokens2);
+		}
+		printf("Sentences: %d\n", num_tokens);
+		num_tokens = 0;
+		num_tokens2 = 0;
+	}
+	free(input);
+	exit(EXIT_SUCCESS);
+}
