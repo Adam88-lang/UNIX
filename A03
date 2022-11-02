@@ -1,0 +1,74 @@
+//Adam Roos
+//SE 3377.004
+//Assignment 3
+//Working with pointers in C
+
+// TASK 1: Include the appropriate files.
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+int main(int argc, char** argv)
+{
+  int32_t x = 3377;
+
+  // TASK 2:
+  // Understand the assignment statements below.
+  // Do not modify them.
+  // Appropriately define the variables p, a, m, z, t
+  
+  int32_t* p;
+  int32_t** a;
+  int32_t*** m;
+  int32_t**** z;
+  int32_t***** t;
+  
+  
+  
+  p = &x;       // p now contains the addr of x
+  a = &p;
+  m = &a;
+  z = &m;
+  t = &z;
+
+  // TASK 3:
+  // Your next task is to print the value of x by
+  // recursively deferencing the above variables.
+  // Complete the printf statments below.
+  // The variable used should be as per the description
+  // of the printf
+
+  printf("x by recursive deref. of p: %d \n",  *p);
+  printf("x by recursive deref. of t: %d \n",  *****t);
+  printf("x by recursive deref. of m: %d \n",  ***m);
+  printf("x by recursive deref. of z: %d \n",  ****z);
+  printf("x by recursive deref. of a: %d \n",  **a);
+
+  char* c;
+
+  // TASK 4:
+  // Find the sizes of c and p
+  // Complete the statements below. Hint: sizeof()
+
+  printf("size of c %ld \n", sizeof(*c));
+  printf("size of p %ld \n", sizeof(*p));
+
+  // TASK 5:
+  // What do you observe? c and p are pointers to two
+  // different types. Are their sizes different?
+  // Write a brief note justifying your observation
+  // at the bottom of the file.
+  // Make sure it is commented.
+
+
+  return EXIT_SUCCESS;
+}
+
+/* your observation below
+
+  The two types do have different sizes.  C comes in at size 1, because a char
+ variable is one byte in C.  The sizeof(*p) comes in at size 4, because an int32_t
+ variable is 4 bytes in C.
+ */
+
