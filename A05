@@ -1,0 +1,71 @@
+/*
+Adam Roos ATR200002
+3377.004
+Assignment 5
+*/
+#include <stdio.h> // for sscanf, fprintf, perror
+#include <stdint.h> // for int32_t
+#include <assert.h> // for assert
+#include <fcntl.h> // for open(), lseek
+#include <unistd.h> //for close()
+#include <string.h> //for strlen, strcmp
+#include "sr.h"
+/// include files are not complete. include the appropriate files
+// Get all the fields of student record sr from stdin
+// Put the record in the appropriate offset of the file described by fd
+void
+put(int32_t fd)
+{
+ sr s;
+ printf("Enter the student name: ");
+
+ // WRITE THE CODE to read the name from stdin
+ // store it in s.name
+ // use fgets()
+ // fgets doesnt remove newline. replace '\n' with '\0' in s.name. strlen() will be useful
+ fgets(s.name, 100, stdin);
+ s.name[strlen(s.name) - 1] = '\0';
+
+ printf("Enter the student id: ");
+ //
+ // WRITE THE CODE to read student id from stdin
+ // store it in s.sid
+ scanf("%d", &s.sid);
+
+ printf("Enter the record index: ");
+ //
+ // WRITE THE CODE to read record index from stdin
+ // store it in s.index
+ scanf("%d", &s.index);
+
+ // WRITE THE CODE to seek to the appropriate offset in fd (lseek(), sizeof() will be useful)
+ lseek(fd, sizeof(sr) * s.index, SEEK_SET);
+
+ // WRITE THE CODE to write record s to fd
+ write(fd, (void*) &s, sizeof(s));
+
+}
+// read the student record stored at position index in fd
+void
+get(int32_t fd)
+{
+ sr s;
+ int32_t index;
+ printf("Enter the record index: ");
+ //
+ // WRITE THE CODE to get record index from stdin and store in it index
+ scanf("%d", &index);
+
+ // WRITE THE CODE to seek to the appropriate offset in fd
+ // The record index may be out of bounds. If so,
+ // print appropriate message and return
+ int result;
+ result = lseek(fd, sizeof(sr)*index, SEEK_SET);
+ if (result == -1) {
+ perror("Out of bounds.");
+ return;
+ }
+ // WRITE THE CODE to read record s from fd
+ // If the record has not been put already, print appropriate message
+ // and return
+ read(fd, (void*)&(s), sizeof(s));
